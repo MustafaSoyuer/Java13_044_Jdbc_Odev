@@ -1,12 +1,15 @@
 package com.mustafa.repository;
 
 import com.mustafa.entity.User;
+import com.mustafa.utility.UserUtility;
 
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
 public class UserRepository implements Repository<User> {
+    UserUtility userUtility = new UserUtility();
+
     private CRUD crud;
     public UserRepository(){
         crud = new CRUD();
@@ -56,7 +59,7 @@ public class UserRepository implements Repository<User> {
      * @param password
      * @return
      */
-    public Optional<User> doLogin(String username, String password){
+    public  Optional<User> doLogin(String username, String password){
         sql = "select * from tbluser where username='"+username+"' and password='"+password+"'";
         resultSet = crud.getAllTableRows(sql);
         Optional<User> userOptinal = Optional.empty();

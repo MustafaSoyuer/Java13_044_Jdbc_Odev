@@ -9,6 +9,7 @@ public class Runner {
      * ---> giriş yapan kişinin bilgilerini bir yerde tutacaksınız.
      * ---> Yeni Ana Ekran
      * *********************************
+     * *** Hoşgeldin [Muhammet HOCA]
      * 1- Postları görüntüle
      * 2- Post paylaş
      * 3- Kullanıcıları Görüntüle

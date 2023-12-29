@@ -3,14 +3,14 @@ package com.mustafa.controller;
 import com.mustafa.entity.User;
 import com.mustafa.repository.UserRepository;
 
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserController {
     private UserRepository userRepository;
     public UserController(){
         this.userRepository = new UserRepository();
     }
+    Queue<Optional<User>> userlist = new LinkedList<>();
     public void Login(){
         System.out.println("""
                     *************************************
@@ -23,6 +23,8 @@ public class UserController {
         System.out.print("Sifre......: ");
         String password = new Scanner(System.in).nextLine();
         Optional<User> userOptinal = userRepository.doLogin(username,password);
+        userlist.add(userOptinal);
+        userlist.peek();
         if(userOptinal.isPresent()){
             System.out.println("GIRIS YAPILDI.");
         }else{
