@@ -33,6 +33,7 @@ public class PostRepository implements Repository<Post>{
 
     @Override
     public boolean update(Post entity) {
+        sql = "update tblpost set postcomment=new where id=id";//??
         crud.executeUpdate(sql);
         return true;
     }
@@ -69,7 +70,7 @@ public class PostRepository implements Repository<Post>{
 
     @Override
     public Optional<Post> findById(Long id) {
-        sql = "select * from tblpost where userid='"+id;
+        sql = "select * from tblpost where userid="+id;
         resultSet = crud.getAllTableRows(sql);
         Optional<Post> postOptinal = Optional.empty();
         try {
@@ -89,5 +90,28 @@ public class PostRepository implements Repository<Post>{
 
         }
         return postOptinal;
+    }
+
+    public List<Post> findbyIdAll(Long id) {
+        sql = "select * from tblpost where userid= "+id;
+        resultSet = crud.getAllTableRows(sql);
+        List<Post> postList = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Long db_id = resultSet.getLong("id");
+                Long userid= resultSet.getLong("userid");
+                String title = resultSet.getString("title");
+                String postcomment = resultSet.getString("postcomment");
+                long shareddate = resultSet.getLong("shareddate");
+                String imageurl = resultSet.getString("imageurl");
+                int likecount = resultSet.getInt("likecount");
+                int commentcount = resultSet.getInt("commentcount");
+                Post post = new Post(db_id,userid,title,postcomment,shareddate,imageurl,likecount,commentcount);
+                postList.add(post);
+            }
+            return postList;
+        }catch (Exception exception){
+            return postList;
+        }
     }
 }

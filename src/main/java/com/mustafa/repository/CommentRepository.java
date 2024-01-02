@@ -1,5 +1,6 @@
 package com.mustafa.repository;
 import com.mustafa.entity.Comment;
+import com.mustafa.entity.Post;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class CommentRepository implements Repository<Comment> {
 
     @Override
     public boolean save(Comment entity) {
-        sql = "insert into tblcomment (userid,postid,commenttext,cammentdate) " +
+        sql = "insert into tblcomment (userid,postid,commenttext,commentdate) " +
                 "values('" + entity.getUserid()
                 + "','" + entity.getPostid()
                 + "','" + entity.getCommenttext()
@@ -96,5 +97,25 @@ public class CommentRepository implements Repository<Comment> {
     @Override
     public Optional<Comment> findById(Long id) {
         return Optional.empty();
+    }
+
+    public List<Comment> findbyIdAll(Long id) {
+        sql = "select * from tblpost where userid= "+id;
+        resultSet = crud.getAllTableRows(sql);
+        List<Comment> commentList = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Long db_id = resultSet.getLong("id");
+                Long userid = resultSet.getLong("userid");
+                Long postid = resultSet.getLong("postid");
+                String commenttext = resultSet.getString("commenttext");
+                long commentdate = resultSet.getLong("commentdate");
+                Comment comment = new Comment(db_id, userid, postid, commenttext, commentdate);
+                commentList.add(comment);
+            }
+            return commentList;
+        }catch (Exception exception){
+            return commentList;
+        }
     }
 }

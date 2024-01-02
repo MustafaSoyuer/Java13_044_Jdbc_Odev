@@ -4,6 +4,7 @@ import com.mustafa.entity.User;
 import com.mustafa.utility.UserUtility;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +42,23 @@ public class UserRepository implements Repository<User> {
 
     @Override
     public List<User> findAll() {
-        resultSet = crud.getAllTableRows(sql);
-        return null;
+
+        resultSet = crud.getAllTableRows("select * from tbluser");
+        List<User> userList = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Long id = resultSet.getLong("id");
+                String adSoyad= resultSet.getString("adsoyad");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String avatar = resultSet.getString("avatar");
+                User user = new User(id,adSoyad,username,password,avatar);
+                userList.add(user);
+            }
+            return userList;
+        }catch (Exception exception){
+            return userList;
+        }
     }
 
     @Override

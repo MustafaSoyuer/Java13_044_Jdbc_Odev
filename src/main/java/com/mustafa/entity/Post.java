@@ -13,6 +13,12 @@ public class Post {
     public Post() {
     }
 
+    public Post(Long userid, String title, String postcomment) {
+        this.userid = userid;
+        this.title = title;
+        this.postcomment = postcomment;
+    }
+
     public Post(Long userid, String title, String postcomment, Long shareddate, String imageurl, int likeCount, int commentCount) {
         this.userid = userid;
         this.title = title;
