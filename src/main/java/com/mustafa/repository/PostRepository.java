@@ -1,6 +1,5 @@
 package com.mustafa.repository;
 
-import com.mustafa.entity.Comment;
 import com.mustafa.entity.Post;
 import com.mustafa.entity.User;
 
@@ -114,4 +113,20 @@ public class PostRepository implements Repository<Post>{
             return postList;
         }
     }
+
+    public String findNamebyPost(Long id) {
+        sql = "select adsoyad from tblpost as p left join tbluser as u on p.userid = u.id where userid="+id;
+        resultSet = crud.getAllTableRows(sql);
+        String adsoyad = null;
+        try{
+            while (resultSet.next()){
+               adsoyad = resultSet.getString("adsoyad");
+                User user = new User( adsoyad);
+            }
+            return adsoyad;
+        }catch (Exception exception){
+            return adsoyad;
+        }
+    }
+
 }

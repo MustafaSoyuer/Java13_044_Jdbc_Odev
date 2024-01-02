@@ -2,7 +2,7 @@ package com.mustafa.entity;
 
 public class User {
     Long id;
-    String adsoyod;
+    String adsoyad;
     String username;
     String password;
     String avatar;
@@ -10,8 +10,12 @@ public class User {
     public User() {
     }
 
+    public User(String adsoyod) {
+        this.adsoyad = adsoyod;
+    }
+
     public User(String adsoyod, String username, String password, String avatar) {
-        this.adsoyod = adsoyod;
+        this.adsoyad = adsoyod;
         this.username = username;
         this.password = password;
         this.avatar = avatar;
@@ -19,7 +23,7 @@ public class User {
 
     public User(Long id, String adsoyod, String username, String password, String avatar) {
         this.id = id;
-        this.adsoyod = adsoyod;
+        this.adsoyad = adsoyod;
         this.username = username;
         this.password = password;
         this.avatar = avatar;
@@ -29,7 +33,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", adsoyod='" + adsoyod + '\'' +
+                ", adsoyod='" + adsoyad + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", avatar='" + avatar + '\'' +
@@ -44,12 +48,12 @@ public class User {
         this.id = id;
     }
 
-    public String getAdsoyod() {
-        return adsoyod;
+    public String getAdsoyad() {
+        return adsoyad;
     }
 
-    public void setAdsoyod(String adsoyod) {
-        this.adsoyod = adsoyod;
+    public void setAdsoyad(String adsoyad) {
+        this.adsoyad = adsoyad;
     }
 
     public String getUsername() {

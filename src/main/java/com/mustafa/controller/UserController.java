@@ -2,7 +2,7 @@ package com.mustafa.controller;
 
 import com.mustafa.entity.User;
 import com.mustafa.repository.UserRepository;
-import com.mustafa.utility.UserUtility;
+
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class UserController {
     public UserController(){
         this.userRepository = new UserRepository();
     }
-    UserUtility userUtility = new UserUtility();
+
     Queue<User> aktifkullanicilar = new LinkedList<>();
     User aktifkullanici ;
 
@@ -28,7 +28,6 @@ public class UserController {
         String password = new Scanner(System.in).nextLine();
         Optional<User> userOptinal = userRepository.doLogin(username,password);
         aktifkullanicilar.add(userOptinal.get());
-
 
         if(userOptinal.isPresent()){
             System.out.println("GIRIS YAPILDI.");
@@ -75,8 +74,7 @@ public class UserController {
         if (!users.isEmpty()) {
             System.out.println("********** KULLANICILAR **********");
             for (User user : users) {
-                System.out.println("User ID: " + user.getId());
-                System.out.println("Ad Soyad: " + user.getAdsoyod());
+                System.out.println("Ad Soyad: " + user.getAdsoyad());
                 System.out.println("Username: " + user.getUsername());
                 System.out.println("-------------------------------");
             }
@@ -89,22 +87,24 @@ public class UserController {
         int secim;
         do{
             System.out.println("         *******************************************************");
-            System.out.println("         ********      HOSGELDIN "+aktifkullanici.getAdsoyod()+"         ********");
+            System.out.println("         ********      HOSGELDIN "+aktifkullanici.getAdsoyad()+"         ********");
             System.out.println("""             
                          *  ******** G I R I S *********************************
-                         *  1- Postları Goruntule
-                         *  2- Post Paylas
-                         *  3- Kullanıcıları Goruntule
-                         *  4- LogOut
+                         *  1- Postlarımı Goruntule
+                         *  2- Tüm Postları Goruntule
+                         *  3- Post Paylas
+                         *  4- Kullanıcıları Goruntule
+                         *  5- LogOut
                      
                 """);
             System.out.print("Lütfen seciniz....: ");
             secim = new Scanner(System.in).nextInt();
             switch (secim){
-                case 1 : new PostController().postlariGoruntule(aktifkullanici.getId()); break;
-                case 2 : new PostController().postPaylas(aktifkullanici.getId(),aktifkullanici.getAdsoyod()); break;
-                case 3 : kullanicilariGoruntule(); break;
-                case 4 :
+                case 1 : new PostController().postlarimiGoruntule(aktifkullanici.getId()); break;
+                case 2 : new PostController().tumPostlariGoruntule() ; break;
+                case 3 : new PostController().postPaylas(aktifkullanici.getId(),aktifkullanici.getAdsoyad()); break;
+                case 4 : kullanicilariGoruntule(); break;
+                case 5 :
                     System.out.println("Ana menuye donuluyor... ");
                     app(); break;
                 default:
@@ -135,12 +135,16 @@ public class UserController {
             switch (secim){
                 case 1 : new UserController().Login(); break;
                 case 2 : new UserController().Register(); break;
+                case 0 :
+                    System.out.println("Cıkış yapılıyor");
+                break;
                 default:
                      System.err.println("Lütfen geçerli bir seçim yapınız.");
                     break;
             }
         }while (secim!=0);
         System.out.println("CIKIS");
+        System.exit(0);
     }
 
 }

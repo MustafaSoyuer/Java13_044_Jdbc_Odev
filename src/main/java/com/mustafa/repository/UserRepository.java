@@ -1,7 +1,8 @@
 package com.mustafa.repository;
 
+
 import com.mustafa.entity.User;
-import com.mustafa.utility.UserUtility;
+
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserRepository implements Repository<User> {
-    UserUtility userUtility = new UserUtility();
 
     private CRUD crud;
     public UserRepository(){
@@ -20,7 +20,7 @@ public class UserRepository implements Repository<User> {
     @Override
     public boolean save(User entity) {
         sql = "insert into tbluser (adsoyad,username,password,avatar) " +
-                "values('"+entity.getAdsoyod()
+                "values('"+entity.getAdsoyad()
                 +"','"+entity.getUsername()
                 +"','"+entity.getPassword()
                 +"','"+entity.getAvatar()+"')";
@@ -63,9 +63,9 @@ public class UserRepository implements Repository<User> {
 
     @Override
     public Optional<User> findById(Long id) {
-        resultSet = crud.getAllTableRows(sql);
         return Optional.empty();
     }
+
 
     /**
      * Bu method verilen kullanıcı adı ve şifreyi DBye sorgu olarak gönderir ve herhangi
